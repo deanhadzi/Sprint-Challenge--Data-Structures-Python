@@ -39,4 +39,40 @@ class LinkedList:
         return False
 
     def reverse_list(self, node, prev):
-        pass
+        # If the list is empty return None.
+        if node == None:
+            return None
+
+        # Otherwise star the process of reversing the list.
+        node_container = []
+
+        # Step 1 - strip the current linked list and save all items.
+        while True:
+            # Append the current node.
+            node_container.append(node)
+            # Increment the current node to next node.
+            node = node.get_next()
+            # If this is the last node (pointer to None)
+            # break the loop
+            if node == None:
+                break
+
+        # Step 2 - create the new list.
+        # Create the new head from the old list tail, by using built in pop method.
+        self.head = node_container.pop()
+        node = self.head
+        # Point the head node to None in case it's List has one node length.
+        node.set_next(None)
+
+        # Iterate through the node_container until we have something in it.
+        while node_container:
+            # Get the next node in order.
+            next_node = node_container.pop()
+            # Set the pointer of the current node to next node.
+            node.set_next(next_node)
+            # Reassign the active node to the next node.
+            node = next_node
+            # Once we grab the last item from the container,
+            # set it's pointer to None.
+            if len(node_container) == 0:
+                node.set_next(None)
